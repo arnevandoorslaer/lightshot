@@ -1,5 +1,5 @@
 function ready() {
-     getPage();
+  getPage();
 }
 
 function getImg(text){
@@ -44,7 +44,7 @@ function getPage() {
          console.log(result[0]);
          $("#kakinboekentas").attr('src', result[0]);
        } else {
-         setTimeout("getPage()", 10000);
+         setTimeout("getPage()", 1000);
        }
     }
   };
