@@ -1,4 +1,1 @@
-# spongebobify
-# RandomLightshot
-# RandomLightshot
 # RandomLightshot
