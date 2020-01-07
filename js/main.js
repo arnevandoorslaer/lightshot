@@ -43,6 +43,7 @@ function getPage() {
          var result = re.exec(http.responseText);
          console.log(result[0]);
          $("#kakinboekentas").attr('src', result[0]);
+         $("#url").attr('src', url);
        } else {
          setTimeout("getPage()", 1000);
        }
