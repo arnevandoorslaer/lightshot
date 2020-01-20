@@ -1,15 +1,38 @@
-function ready() {
-  getPage();
-}
+let previous = "";
 
-function getImg(text){
-  let regex = /https:\/\/image\.prntscr\.com\/image\/[^>]+\.png/gm
-   if (regex.test(text)) {
-     return regex.exec(text);
-   }
-   else{
-     return getImg(httpGet(getRandomUrl()));
-   }
+function getPage(oldUrl) {
+  window.location.hash = '#r';
+  var url = "";
+  if (oldUrl != undefined) {
+    url = oldUrl;
+  } else {
+    url = getRandomUrl();
+  }
+  console.log(url);
+  const http = new XMLHttpRequest();
+  http.open("GET", url);
+  http.send();
+  http.onreadystatechange = function() {
+    if (http.readyState == 4 && http.status == 200) {
+      let re = /https:\/\/i\.imgur\.com\/[^>]+\.png/gm
+      let re2 = /https:\/\/image\.prntscr\.com\/image\/[^>]+\.png/gm
+      let image = document.getElementById('image');
+       if (re2.test(http.responseText)) {
+         var result = re2.exec(http.responseText)[0];
+         image.src = result;
+         document.getElementById("url").href = url;
+         document.getElementById("url").innerHTML = url;
+       }
+       else if (re.test(http.responseText)) {
+         var result = re.exec(http.responseText)[0];
+         image.src = result;
+         document.getElementById("url").href = url;
+         document.getElementById("url").innerHTML = url;
+       } else {
+        setTimeout("getPage()", 1000);
+       }
+    }
+  };
 }
 
 function getRandomUrl() {
@@ -21,32 +44,12 @@ function getRandomUrl() {
    return "https://prnt.sc/"+result;
 }
 
-function httpGet(theUrl)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, true ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
+function autofocus() {
+  window.location.hash = '#r';
 }
 
-function getPage() {
-  var url = getRandomUrl();
-  console.log(url);
-  const http = new XMLHttpRequest();
-  http.open("GET", url);
-  http.send();
-  http.onreadystatechange = function() {
-    console.log(http.readyState + " " + http.status);
-    if (http.readyState == 4 && http.status == 200) {
-      let re = /https:\/\/i\.imgur\.com\/[^>]+\.png/gm
-       if (re.test(http.responseText)) {
-         var result = re.exec(http.responseText);
-         console.log(result[0]);
-         $("#kakinboekentas").attr('src', result[0]);
-         $("#url").attr('src', url);
-       } else {
-         setTimeout("getPage()", 1000);
-       }
-    }
-  };
-}
+document.addEventListener('keydown', function(event) {
+  if (event.code == 'KeyR') {
+    getPage();
+  }
+});
