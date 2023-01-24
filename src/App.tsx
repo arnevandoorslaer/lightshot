@@ -23,29 +23,27 @@ function App() {
   };
 
   return (
-    <>
-      <div className='text-center m-5'>
-        <div style={{ height: '500px' }} className='mb-5'>
+    <div className='text-center mt-5 container'>
+      <div style={{ height: '500px' }} className='mb-5'>
+        <div className='h-100 d-flex justify-content-center align-items-center mt-4'>
           {loading ? (
-            <div className='h-100 border border-dark d-flex justify-content-center align-items-center'>
-              <div className='spinner-border' role='status'></div>
-            </div>
+            <div className='spinner-border' role='status'></div>
           ) : (
-            <img src={src} ref={image} alt={src} className='h-100' />
+            <img src={src} ref={image} alt={src} style={{ maxWidth: '100%' }} />
           )}
         </div>
-        <button
-          onClick={() => {
-            getRandomUrl();
-            setLoading(true);
-          }}
-          disabled={loading}
-          className='btn btn-dark m-5 px-5'
-        >
-          Get Picture
-        </button>
       </div>
-    </>
+      <button
+        onClick={() => {
+          getRandomUrl();
+          setLoading(true);
+        }}
+        disabled={loading}
+        className='btn btn-dark m-5 px-5'
+      >
+        Get Picture
+      </button>
+    </div>
   );
 }
 
