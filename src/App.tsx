@@ -23,26 +23,27 @@ function App() {
   };
 
   return (
-    <div className='text-center mt-5 container'>
-      <div style={{ height: '500px' }} className='mb-5'>
-        <div className='h-100 d-flex justify-content-center align-items-center mt-4'>
-          {loading ? (
-            <div className='spinner-border' role='status'></div>
-          ) : (
-            <img src={src} ref={image} alt={src} style={{ maxWidth: '100%' }} />
-          )}
-        </div>
-      </div>
+    <div
+      className='text-center mt-5 container col-6'
+      style={{ height: '20rem' }}
+    >
       <button
         onClick={() => {
           getRandomUrl();
           setLoading(true);
         }}
         disabled={loading}
-        className='btn btn-dark m-5 px-5'
+        className='btn btn-dark w-100 mb-5'
       >
         Get Picture
       </button>
+      <div className='h-100 d-flex justify-content-center align-items-center mt-4'>
+        {loading ? (
+          <div className='spinner-border' role='status'></div>
+        ) : (
+          <img src={src} ref={image} alt={src} style={{ maxHeight: '70%' }} />
+        )}
+      </div>
     </div>
   );
 }
